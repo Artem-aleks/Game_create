@@ -36,11 +36,9 @@ class Window:
             Window.d1_point(self, 560 + turn, 710 - i, self.window.get_surface(), (l, l, l))
         for i in range(150):
             Window.d1_point(self, 500 + turn, 710 - i, self.window.get_surface(), (l, l, l))
-        for i in range(60):
-            Window.d1_point(self, 500 + turn + i, 561, self.window.get_surface(), (l, l, l))
         for i in range(40):
             Window.d1_point(self, 600 + turn - i, 710 - i, self.window.get_surface(), (l, l, l))
-        for i in range(30):
+        for i in range(31):
             Window.d1_point(self, 500 + turn + i, 561 - i, self.window.get_surface(), (l, l, l))
         for i in range(30):
             Window.d1_point(self, 560 + turn - i, 561 - i, self.window.get_surface(), (l, l, l))
@@ -56,6 +54,129 @@ class Window:
             Window.d1_point(self, 500 + turn - i, 710, self.window.get_surface(), (l, l, l))
         for i in range(40):
             Window.d1_point(self, 461 + turn + i, 710 - i, self.window.get_surface(), (l, l, l))
+        for i in range(0, 60, 10):
+            for w in range(149):
+                Window.d1_point(self, 500 + turn + i, 710 - w, self.window.get_surface(), (l, l, l))
+        c = 50
+        for i in range(0, 40, 10):
+            c -= 10
+            for w in range(c):
+                Window.d1_point(self, 500 + turn - i, 710 - w , self.window.get_surface(), (l, l, l))
+        c = 50
+        for i in range(0, 40, 10):
+            c -= 10
+            for w in range(c):
+                Window.d1_point(self, 560 + turn + i, 710 - w, self.window.get_surface(), (l, l, l))
+        c = 60
+        for i in range(0, 50, 10):
+            c -= 10
+            for w in range(c):
+                Window.d1_point(self, 560 + turn + i, 635 - w, self.window.get_surface(), (l, l, l))
+        c = 60
+        for i in range(0, 50, 10):
+            c -= 10
+            for w in range(c):
+                Window.d1_point(self, 500 + turn - i, 635 - w, self.window.get_surface(), (l, l, l))
+        c = -10
+        for i in range(0, 40, 10):
+            c += 10
+            for w in range(c):
+                Window.d1_point(self, 500 + turn + i, 561 - w, self.window.get_surface(), (l, l, l))
+        c = 40
+        for i in range(0, 40, 10):
+            c -= 10
+            for w in range(c):
+                Window.d1_point(self, 530 + turn + i, 561 - w, self.window.get_surface(), (l, l, l))
+
+    def ft_men(self, l):
+        for i in range(100):
+            Window.d1_point(self, 340, 200 - i, self.window.get_surface(), (l, l, l))
+        for i in range(30):
+            Window.d1_point(self, 340 + i, 100 + i, self.window.get_surface(), (l, l, l))
+        for i in range(30):
+            Window.d1_point(self, 370 + i, 130 - i, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 400, 100 + i, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 420, 100 + i, self.window.get_surface(), (l, l, l))
+        for i in range(25):
+            Window.d1_point(self, 420 + i, 100, self.window.get_surface(), (l, l, l))
+        for i in range(25):
+            Window.d1_point(self, 420 + i, 200, self.window.get_surface(), (l, l, l))
+        for i in range(25):
+            Window.d1_point(self, 420 + i, 150, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 470, 100 + i, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 510, 100 + i, self.window.get_surface(), (l, l, l))
+        for i in range(40):
+            Window.d1_point(self, 470 + i, 150, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 530, 100 + i, self.window.get_surface(), (l, l, l))
+        for i in range(20):
+            Window.d1_point(self, 530 + i, 150, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 550, 100 + i, self.window.get_surface(), (l, l, l))
+        for i in range(30):
+            Window.d1_point(self, 550 + i, 100, self.window.get_surface(), (l, l, l))
+        for i in range(30):
+            Window.d1_point(self, 550 + i, 200, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 580, 100 + i, self.window.get_surface(), (l, l, l))
+
+    def line_goriz(self, x, y, l, color=(0, 0, 0)):
+        sp = [[x, y]]
+        Window.d1_point(self, x, y, self.window.get_surface(), color)
+        if l < 0:
+            for i in range(l * -1):
+                Window.d1_point(self, x - 1, y, self.window.get_surface(), color)
+                x = x - 1
+                sp.append([x - 1, y])
+        else:
+            for i in range(l):
+                Window.d1_point(self, x, y, self.window.get_surface(), color)
+                x = x + 1
+                sp.append([x, y])
+        return sp
+
+    def line_vert(self, x, y, l, color=(0, 0, 0)):
+        sp = [[x, y]]
+        Window.d1_point(self, x, y, self.window.get_surface(), color)
+        if l < 0:
+            for i in range(l * -1):
+                Window.d1_point(self, x - 1, y - 1,
+                                self.window.get_surface(), color)
+                sp.append([x - 1, y - 1])
+                y = y - 1
+        else:
+            for i in range(l):
+                Window.d1_point(
+                    self, x, y + 1, self.window.get_surface(), color)
+                sp.append([x, y + 1])
+                y = y + 1
+        return sp
+
+    def rectangle(self, x, y, w, p):
+        xyw = [x + w, y]
+        sp = [[x, y]]
+        Window.d1_point(self, x, y, self.window.get_surface(), (p, p, p))
+        sp.append(Window.line_goriz(self, x, y, w, (p, p, p)))
+        sp.append(Window.line_vert(self, x, y, w, (p, p, p)))
+        sp.append(Window.line_goriz(self, xyw[0], xyw[1], w, (p, p, p)))
+        sp.append(Window.line_vert(self, xyw[0], xyw[1], w, (p, p, p)))
+
+    def drawDDA(self, x1, y1, x2, y2, color=(0, 0, 0)):
+        x, y = x1, y1
+        length = abs((x2 - x1) if abs(x2 - x1) > abs(y2 - y1) else (y2 - y1))
+        dx = (x2 - x1) / float(length)
+        dy = (y2 - y1) / float(length)
+        Window.d1_point(self, round(x), round(
+            y), self.window.get_surface(), color)
+        for i in range(int(length)):
+            x += dx
+            y += dy
+            Window.d1_point(self, round(x), round(
+                y), self.window.get_surface(), color)
 
     def run(self):
         sdl2.ext.init()
@@ -64,7 +185,12 @@ class Window:
         Window.fill_Window(self, (192, 192, 192))
         k = 0
         z = 0
+        i = 0
         s = 192
+        print("Правила игры:")
+        print("Для того что бы начать игру нажмите пробел")
+        print("Для управления ракетой вы можете пользоваться двумя кнопками влево и вправо")
+        print("Смысл игры:вы должны облетать ракетой космический мусор, если вы врезаетесь,то игра начинается заново")
         while running:
             events = sdl2.ext.get_events()
             for event in events:
@@ -73,15 +199,34 @@ class Window:
                     break
                 elif event.type == sdl2.SDL_KEYDOWN:
                     if event.key.keysym.sym == sdl2.SDLK_UP:
+                        Window.ft_men(self, z)
+                        Window.draw_raketa(self, k, s)
+                        Window.draw_raketa(self, 0, s)
+                    if event.key.keysym.sym == sdl2.SDLK_SPACE:
+                        Window.ft_men(self, s)
+                        Window.draw_raketa(self, k, s)
                         Window.draw_raketa(self, 0, z)
+                        k = 0
                     if event.key.keysym.sym == sdl2.SDLK_LEFT:
+                        if k != 0:
+                            Window.draw_raketa(self, 0, s)
                         Window.draw_raketa(self, k, s)
-                        k -= 5
+                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        k -= 10
                         Window.draw_raketa(self, k, z)
+                        Window.ft_men(self, s)
+                        i += 5
+                        Window.rectangle(self, 100, 1 + i, 50, z)
                     if event.key.keysym.sym == sdl2.SDLK_RIGHT:
+                        if k != 0:
+                            Window.draw_raketa(self, 0, s)
                         Window.draw_raketa(self, k, s)
-                        k += 5
+                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        k += 10
                         Window.draw_raketa(self, k, z)
+                        Window.ft_men(self, s)
+                        i += 5
+                        Window.rectangle(self, 100, 1 + i, 50, z)
 
 
                 elif event.type == sdl2.SDL_CONTROLLER_BUTTON_X:
