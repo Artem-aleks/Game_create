@@ -4,6 +4,7 @@ import sdl2.ext
 import sdl2.sdlgfx
 
 
+
 class Window:
     def __init__(self, size, name):
         self.size = size
@@ -61,7 +62,7 @@ class Window:
         for i in range(0, 40, 10):
             c -= 10
             for w in range(c):
-                Window.d1_point(self, 500 + turn - i, 710 - w , self.window.get_surface(), (l, l, l))
+                Window.d1_point(self, 500 + turn - i, 710 - w, self.window.get_surface(), (l, l, l))
         c = 50
         for i in range(0, 40, 10):
             c -= 10
@@ -193,6 +194,9 @@ class Window:
         print("Для того что бы начать игру нажмите пробел")
         print("Для управления ракетой вы можете пользоваться двумя кнопками влево и вправо")
         print("Смысл игры:вы должны облетать ракетой космический мусор, если вы врезаетесь,то игра начинается заново")
+        print("На каждом уровне мусор будет изменять траекторию движения и скорость")
+        print("В игре есть 3 уровня,если ты прошел все,то ты выиграл и игра закончена")
+        print("Хорошей игры!!!")
         while running:
             events = sdl2.ext.get_events()
             for event in events:
@@ -204,15 +208,23 @@ class Window:
                         Window.ft_men(self, z)
                         Window.draw_raketa(self, k, s)
                         Window.draw_raketa(self, 0, s)
-                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        Window.rectangle(self, 200, 1 + i, 100, s)
+                        Window.rectangle(self, 900, 1 + m, 100, s)
+                        Window.rectangle(self, 1500, 1 + q, 100, s)
                         i = 0
                         k = 0
+                        m = 0
+                        q = 0
                     if event.key.keysym.sym == sdl2.SDLK_SPACE:
                         Window.ft_men(self, s)
                         Window.draw_raketa(self, k, s)
                         Window.draw_raketa(self, 0, z)
                         k = 0
-                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        Window.rectangle(self, 200, 1 + i, 100, s)
+                        Window.rectangle(self, 900, 1 + m, 100, s)
+                        Window.rectangle(self, 1500, 1 + q, 100, s)
+                        m = 0
+                        q = 0
                         i = 0
                     if event.key.keysym.sym == sdl2.SDLK_LEFT:
                         if k != 0:
@@ -221,15 +233,15 @@ class Window:
                         k -= 10
                         Window.draw_raketa(self, k, z)
                         Window.ft_men(self, s)
-                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        Window.rectangle(self, 200, 1 + i, 100, s)
                         i += 5
-                        Window.rectangle(self, 100, 1 + i, 50, z)
-                        Window.rectangle(self, 500, 1 + m, 76, s)
-                        m += 7
-                        Window.rectangle(self, 500, 1 + m, 76, z)
-                        Window.rectangle(self, 300, 1 + q, 100, s)
-                        q += 10
-                        Window.rectangle(self, 300, 1 + q, 100, z)
+                        Window.rectangle(self, 200, 1 + i, 100, z)
+                        Window.rectangle(self, 900, 1 + m, 100, s)
+                        m += 5
+                        Window.rectangle(self, 900, 1 + m, 100, z)
+                        Window.rectangle(self, 1500, 1 + q, 100, s)
+                        q += 5
+                        Window.rectangle(self, 1500, 1 + q, 100, z)
                     if event.key.keysym.sym == sdl2.SDLK_RIGHT:
                         if k != 0:
                             Window.draw_raketa(self, 0, s)
@@ -237,15 +249,15 @@ class Window:
                         k += 10
                         Window.draw_raketa(self, k, z)
                         Window.ft_men(self, s)
-                        Window.rectangle(self, 100, 1 + i, 50, s)
-                        i += 13
-                        Window.rectangle(self, 100, 1 + i, 50, z)
-                        Window.rectangle(self, 500, 1 + m, 76, s)
-                        m += 10
-                        Window.rectangle(self, 500, 1 + m, 76, z)
-                        Window.rectangle(self, 300, 1 + q, 100, s)
-                        q += 7
-                        Window.rectangle(self, 300, 1 + q, 100, z)
+                        Window.rectangle(self, 200, 1 + i, 100, s)
+                        i += 5
+                        Window.rectangle(self, 200, 1 + i, 100, z)
+                        Window.rectangle(self, 900, 1 + m, 100, s)
+                        m += 5
+                        Window.rectangle(self, 900, 1 + m, 100, z)
+                        Window.rectangle(self, 1500, 1 + q, 100, s)
+                        q += 5
+                        Window.rectangle(self, 1500, 1 + q, 100, z)
 
 
                 elif event.type == sdl2.SDL_CONTROLLER_BUTTON_X:
@@ -260,7 +272,7 @@ class Window:
 
 
 def main():
-    window = Window((1080, 720), "Best Game")
+    window = Window((1900, 800), "Best Game")
 
     window.run()
 
