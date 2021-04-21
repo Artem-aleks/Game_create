@@ -162,7 +162,7 @@ class Window:
         Window.d1_point(self, x, y, self.window.get_surface(), (p, p, p))
         sp.append(Window.line_goriz(self, x, y, w, (p, p, p)))
         sp.append(Window.line_vert(self, x, y, w, (p, p, p)))
-        sp.append(Window.line_goriz(self, xyw[0], xyw[1], w, (p, p, p)))
+        sp.append(Window.line_goriz(self, x, y + w, w, (p, p, p)))
         sp.append(Window.line_vert(self, xyw[0], xyw[1], w, (p, p, p)))
 
     def drawDDA(self, x1, y1, x2, y2, color=(0, 0, 0)):
@@ -186,6 +186,8 @@ class Window:
         k = 0
         z = 0
         i = 0
+        m = 0
+        q = 0
         s = 192
         print("Правила игры:")
         print("Для того что бы начать игру нажмите пробел")
@@ -202,31 +204,48 @@ class Window:
                         Window.ft_men(self, z)
                         Window.draw_raketa(self, k, s)
                         Window.draw_raketa(self, 0, s)
+                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        i = 0
+                        k = 0
                     if event.key.keysym.sym == sdl2.SDLK_SPACE:
                         Window.ft_men(self, s)
                         Window.draw_raketa(self, k, s)
                         Window.draw_raketa(self, 0, z)
                         k = 0
+                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        i = 0
                     if event.key.keysym.sym == sdl2.SDLK_LEFT:
                         if k != 0:
                             Window.draw_raketa(self, 0, s)
                         Window.draw_raketa(self, k, s)
-                        Window.rectangle(self, 100, 1 + i, 50, s)
                         k -= 10
                         Window.draw_raketa(self, k, z)
                         Window.ft_men(self, s)
+                        Window.rectangle(self, 100, 1 + i, 50, s)
                         i += 5
                         Window.rectangle(self, 100, 1 + i, 50, z)
+                        Window.rectangle(self, 500, 1 + m, 76, s)
+                        m += 7
+                        Window.rectangle(self, 500, 1 + m, 76, z)
+                        Window.rectangle(self, 300, 1 + q, 100, s)
+                        q += 10
+                        Window.rectangle(self, 300, 1 + q, 100, z)
                     if event.key.keysym.sym == sdl2.SDLK_RIGHT:
                         if k != 0:
                             Window.draw_raketa(self, 0, s)
                         Window.draw_raketa(self, k, s)
-                        Window.rectangle(self, 100, 1 + i, 50, s)
                         k += 10
                         Window.draw_raketa(self, k, z)
                         Window.ft_men(self, s)
-                        i += 5
+                        Window.rectangle(self, 100, 1 + i, 50, s)
+                        i += 13
                         Window.rectangle(self, 100, 1 + i, 50, z)
+                        Window.rectangle(self, 500, 1 + m, 76, s)
+                        m += 10
+                        Window.rectangle(self, 500, 1 + m, 76, z)
+                        Window.rectangle(self, 300, 1 + q, 100, s)
+                        q += 7
+                        Window.rectangle(self, 300, 1 + q, 100, z)
 
 
                 elif event.type == sdl2.SDL_CONTROLLER_BUTTON_X:
