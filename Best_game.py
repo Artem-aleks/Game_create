@@ -2,6 +2,7 @@ import sys
 import sdl2
 import sdl2.ext
 import sdl2.sdlgfx
+import pygame as pg
 
 
 class Window:
@@ -344,7 +345,9 @@ class Window:
 
 def main():
     window = Window((1900, 800), "Best Game")
-
+    pg.init()
+    pg.mixer.music.load("dmg.mp3")
+    pg.mixer.music.play()
     window.run()
 
 
