@@ -31,7 +31,38 @@ class Window:
         processor.run(self.window)
 
     def round_1(self, l):
-        Window.d1_point(self, 500, 710, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 950, 200 - i, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self,  900 + i, 100, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self,  900 + i, 200, self.window.get_surface(), (l, l, l))
+
+
+    def round_2(self, l):
+        for i in range(100):
+            Window.d1_point(self, 935, 200 - i, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 900 + i, 200, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 900 + i, 100, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 965, 200 - i, self.window.get_surface(), (l, l, l))
+
+    def round_3(self, l):
+        for i in range(100):
+            Window.d1_point(self, 900 + i, 200, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 900 + i, 100, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 920, 200 - i, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 950, 200 - i, self.window.get_surface(), (l, l, l))
+        for i in range(100):
+            Window.d1_point(self, 980, 200 - i, self.window.get_surface(), (l, l, l))
+
+
+
 
     def draw_raketa(self, turn, l):
         for i in range(100):
