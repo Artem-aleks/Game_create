@@ -3,6 +3,7 @@ import sdl2
 import sdl2.ext
 import sdl2.sdlgfx
 import pygame as pg
+from PIL import Image
 
 
 class Window:
@@ -21,14 +22,6 @@ class Window:
         WHITE = sdl2.ext.Color(r, g, b)
         pixelview = sdl2.ext.PixelView(surface)
         pixelview[y][x] = WHITE
-
-    def d_point(self, x, y, color):
-        r, g, b = color
-        renderer = sdl2.ext.Renderer(self.window)
-        renderer.draw_point([x, y], sdl2.ext.Color(r, g, b))
-        renderer.present()
-        processor = sdl2.ext.TestEventProcessor()
-        processor.run(self.window)
 
     def round_1(self, l):
         for i in range(100):
@@ -60,9 +53,6 @@ class Window:
             Window.d1_point(self, 950, 200 - i, self.window.get_surface(), (l, l, l))
         for i in range(100):
             Window.d1_point(self, 980, 200 - i, self.window.get_surface(), (l, l, l))
-
-
-
 
     def draw_raketa(self, turn, l):
         for i in range(100):
@@ -159,6 +149,18 @@ class Window:
         for i in range(100):
             Window.d1_point(self, 580, 100 + i, self.window.get_surface(), (l, l, l))
 
+
+    def draw_menu(self):
+        Window.fill_Window(self, (0, 100, 240))
+        sp = []
+        image = Image.open('menu.png')
+        size = image.size
+        pix = image.load()
+        for x in range(size[0]):
+            for y in range(size[1]):
+                if pix[x, y] == (0, 0, 0):
+                    Window.d1_point(self, x, y, self.window.get_surface(), (0, 0, 0))
+
     def line_goriz(self, x, y, l, color=(0, 0, 0)):
         sp = [[x, y]]
         Window.d1_point(self, x, y, self.window.get_surface(), color)
@@ -191,6 +193,12 @@ class Window:
                 y = y + 1
         return sp
 
+    def check_collision(self, sp1, sp2):
+        for i in sp1:
+            if i in sp2:
+                return False
+        return True
+
     def rectangle(self, x, y, w, p):
         xyw = [x + w, y]
         sp = [[x, y]]
@@ -218,6 +226,7 @@ class Window:
         self.window.show()
         running = True
         Window.fill_Window(self, (192, 192, 192))
+        Window.draw_menu(self)
         k = 0
         z = 0
         i = 0
@@ -225,6 +234,7 @@ class Window:
         q = 0
         w = 0
         s = 192
+        s1 = None
         print("Правила игры:")
         print("Для того что бы начать игру нажмите пробел")
         print("Для управления ракетой вы можете пользоваться двумя кнопками влево и вправо")
@@ -233,6 +243,22 @@ class Window:
         print("В игре есть 3 уровня,если ты прошел все,то ты выиграл и игра закончена")
         print("Хорошей игры!!!")
         while running:
+            if s1 == None:
+                s1 = random.randint(100, 930)
+            elif s1 != None and Window.check_collision(sp_boat, sp_bomb) != True:
+                try:
+                    Window.draw_bomb(self, s1, y, (43, 122, 168), (43, 122, 168))
+                    if level == 1:
+                        sp_bomb = Window.draw_bomb(self, s1, y + 50, (166, 166, 166), (255, 255, 255))
+                        y += 50
+                    elif level == 2:
+                        sp_bomb = Window.draw_bomb(self, s1, y + 100, (166, 166, 166), (255, 255, 255))
+                        y += 100
+                except:
+                    s1 = None
+                    y = 100
+                    Window.rectangle(self, 99, 720 - 57,
+                                     1079 - 200, 57, color=(43, 122, 168))
             events = sdl2.ext.get_events()
             for event in events:
                 if event.type == sdl2.SDL_QUIT:
@@ -240,7 +266,7 @@ class Window:
                     break
                 elif event.type == sdl2.SDL_KEYDOWN:
                     if event.key.keysym.sym == sdl2.SDLK_UP:
-                        Window.ft_men(self, z)
+                        Window.draw_menu(self)
                         Window.draw_raketa(self, k, s)
                         Window.draw_raketa(self, 0, s)
                         Window.rectangle(self, 200, 1 + i, 100, s)
@@ -251,7 +277,7 @@ class Window:
                         m = 0
                         q = 0
                     if event.key.keysym.sym == sdl2.SDLK_SPACE:
-                        Window.ft_men(self, s)
+                        Window.fill_Window(self, (192, 192, 192))
                         Window.draw_raketa(self, k, s)
                         Window.draw_raketa(self, 0, z)
                         k = 0
@@ -268,21 +294,21 @@ class Window:
                             Window.draw_raketa(self, k, s)
                             k -= 10
                             Window.draw_raketa(self, k, z)
-                            Window.ft_men(self, s)
+                            #Window.fill_Window(self, (192, 192, 192))
                             Window.rectangle(self, 200, 1 + i, 100, s)
-                            i += 5
+                            i += 50
                             Window.rectangle(self, 200, 1 + i, 100, z)
                             Window.rectangle(self, 900, 1 + m, 100, s)
-                            m += 5
+                            m += 50
                             Window.rectangle(self, 900, 1 + m, 100, z)
                             Window.rectangle(self, 1500, 1 + q, 100, s)
-                            q += 5
+                            q += 50
                             Window.rectangle(self, 1500, 1 + q, 100, z)
                         if w == 1:
                             Window.draw_raketa(self, k, s)
                             k += 10
                             Window.draw_raketa(self, k, z)
-                            Window.ft_men(self, s)
+                            #Window.fill_Window(self, (192, 192, 192))
                             Window.rectangle(self, 200, 1 + i, 100, s)
                             i -= 10
                             Window.rectangle(self, 200, 1 + i, 100, z)
@@ -296,7 +322,7 @@ class Window:
                             Window.draw_raketa(self, k, s)
                             k -= 10
                             Window.draw_raketa(self, k, z)
-                            Window.ft_men(self, s)
+                            #Window.fill_Window(self, (192, 192, 192))
                             Window.rectangle(self, 200 + i, 1 + i, 100, s)
                             i += 13
                             Window.rectangle(self, 200 + i, 1 + i, 100, z)
@@ -306,7 +332,7 @@ class Window:
                             Window.rectangle(self, 1500 - q, 1 + q, 100, s)
                             q += 7
                             Window.rectangle(self, 1500 - q, 1 + q, 100, z)
-                        if i > 500 or m > 500 or q > 500:
+                        if i > 600 or m > 600 or q > 600:
                             i = 0
                             m = 0
                             q = 0
@@ -318,21 +344,21 @@ class Window:
                             Window.draw_raketa(self, k, s)
                             k += 10
                             Window.draw_raketa(self, k, z)
-                            Window.ft_men(self, s)
+                            #Window.fill_Window(self, (192, 192, 192))
                             Window.rectangle(self, 200, 1 + i, 100, s)
-                            i += 5
+                            i += 50
                             Window.rectangle(self, 200, 1 + i, 100, z)
                             Window.rectangle(self, 900, 1 + m, 100, s)
-                            m += 5
+                            m += 50
                             Window.rectangle(self, 900, 1 + m, 100, z)
                             Window.rectangle(self, 1500, 1 + q, 100, s)
-                            q += 5
+                            q += 50
                             Window.rectangle(self, 1500, 1 + q, 100, z)
                         if w == 1:
                             Window.draw_raketa(self, k, s)
                             k += 10
                             Window.draw_raketa(self, k, z)
-                            Window.ft_men(self, s)
+                            #Window.fill_Window(self, (192, 192, 192))
                             Window.rectangle(self, 200, 1 + i, 100, s)
                             i += 10
                             Window.rectangle(self, 200, 1 + i, 100, z)
@@ -346,7 +372,7 @@ class Window:
                             Window.draw_raketa(self, k, s)
                             k += 10
                             Window.draw_raketa(self, k, z)
-                            Window.ft_men(self, s)
+                            #Window.fill_Window(self, (192, 192, 192))
                             Window.rectangle(self, 200 + i, 1 + i, 100, s)
                             i += 13
                             Window.rectangle(self, 200 + i, 1 + i, 100, z)
@@ -361,8 +387,6 @@ class Window:
                             m = 0
                             q = 0
                             w += 1
-
-
                 elif event.type == sdl2.SDL_CONTROLLER_BUTTON_X:
                     Window.d_point(self, 10, 20, self.window.get_surface(), (0, 0, 0))
                     Window.d_point(self, 11, 20, self.window.get_surface(), (0, 0, 0))
@@ -375,10 +399,10 @@ class Window:
 
 
 def main():
-    window = Window((1900, 800), "Best Game")
-    pg.init()
-    pg.mixer.music.load("dmg.mp3")
-    pg.mixer.music.play()
+    window = Window((1900, 800), "No no Best Game")
+    #pg.init()
+    #pg.mixer.music.load("dmg.mp3")
+    #pg.mixer.music.play()
     window.run()
 
 
